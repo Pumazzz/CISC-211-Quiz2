@@ -1,0 +1,37 @@
+section .data
+    a dd 5          ; Define variable a with value 5
+    b dd 10         ; Define variable b with value 10
+    c dd 2          ; Define variable c with value 2
+    d dd 3          ; Define variable d with value 3
+    result dd 0     ; Define variable result to store the final value
+
+section .text
+    global _start
+
+_start:
+    ; Load a and b into registers and multiply
+    mov eax, [a]    ; Load the value of a into eax
+    mov ebx, [b]    ; Load the value of b into ebx
+
+    ; Perform the multiplication a * b
+    imul eax, ebx   ; eax = eax * ebx (a * b)
+    
+    ; Save the result of (a * b) temporarily in ecx
+    mov ecx, eax    ; ecx = a * b
+
+    ; Load c and d into registers and multiply
+    mov eax, [c]    ; Load the value of c into eax
+    mov ebx, [d]    ; Load the value of d into ebx
+
+    ; Perform multiplucation c * d
+    imul eax, ebx   ; eax = eax * ebx (c * d)
+    
+    ; Add the results of the two multiplications
+    add eax, ecx    ; eax = (a * b) + (c * d)
+
+    ; Store the final result in the result variable
+    mov [result], eax
+
+    ; Exit the program
+    mov eax, 1      ; sys_exit system call
+    int 0x80        ; call kernel
